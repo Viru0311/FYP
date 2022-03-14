@@ -3,8 +3,11 @@ const config = require("../config/config.server");
 const db = require("../models");
 const { getCookie } = require("../helpers/cookie");
 const { getAuthJWTToken } = require("../helpers/jwt");
+const { isEmail } = require("../helpers/validators");
 
 module.exports.register = async (req, res) => {
+  console.log(req.body);
+
   if (!isEmail(req.body.email)) {
     return res.status(400).json({
       success: false,
@@ -28,6 +31,7 @@ module.exports.register = async (req, res) => {
   try {
     await user.save();
   } catch (err) {
+    console.log(err);
     return res.status(400).json({
       success: false,
       message: "User with same email or username already exists",
