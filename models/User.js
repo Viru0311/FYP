@@ -65,6 +65,11 @@ const resultsSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+
+  output: {
+    type: Number,
+    required: true,
+  },
 });
 
 const UserSchema = mongoose.Schema(

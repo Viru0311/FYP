@@ -13,3 +13,39 @@ module.exports.validateJWTToken = async (req, res, next) => {
     });
   }
 };
+
+module.exports.validateUserIsOfPatientType = async (req, res, next) => {
+  try {
+    if (req.user.userType !== "patient") {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized Access",
+      });
+    }
+    next();
+    return;
+  } catch (err) {
+    return res.status(401).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+module.exports.validateUserIsOfDoctorType = async (req, res, next) => {
+  try {
+    if (req.user.userType !== "doctor") {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized Access",
+      });
+    }
+    next();
+    return;
+  } catch (err) {
+    return res.status(401).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};

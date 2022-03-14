@@ -6,8 +6,6 @@ const { getAuthJWTToken } = require("../helpers/jwt");
 const { isEmail } = require("../helpers/validators");
 
 module.exports.register = async (req, res) => {
-  console.log(req.body);
-
   if (!isEmail(req.body.email)) {
     return res.status(400).json({
       success: false,
