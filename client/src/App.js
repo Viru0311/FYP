@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "boxicons/css/boxicons.min.css";
+import AppLayout from "./components/Layout/AppLayout";
+import Blank from "./pages/Blank";
+import SignIn from "./components/Auth/SignIn/SignIn.jsx";
+import SignUp from "./components/Auth/SignUp/SignUp.jsx";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Blank text="home" />} />
+          <Route path="/started" element={<Blank text="started" />} />
+          <Route path="/calendar" element={<Blank text="calendar" />} />
+          <Route path="/user" element={<Blank text="user" />} />
+          <Route path="/order" element={<Blank text="order" />} />
+          <Route path="/signin" element={<SignIn text="signin" />} />
+          <Route path="/signup" element={<SignUp text="signup" />} />
+          <Route path="/logout" element={<Blank text="logout" />} />
+        </Route>{" "}
+      </Routes>
+    </BrowserRouter>
   );
+  // return <div className="App">Learn React</div>;
 }
 
 export default App;
