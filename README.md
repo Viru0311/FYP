@@ -11,7 +11,6 @@
 │   ├── auth.js
 │   └── patient.js
 │
-├── data
 ├── helpers
 │   ├── cookie.js
 │   ├── error.js
