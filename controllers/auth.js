@@ -21,30 +21,34 @@ module.exports.register = async (req, res) => {
   const user = await db.User({
     name: req.body.name,
     username: req.body.username,
-    password,
     email: req.body.email,
     mobile: req.body.mobile,
+    password: password,
+    gender: req.body.gender,
+    userType: req.body.userType,
   });
 
   try {
     await user.save();
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     return res.status(400).json({
       success: false,
-      message: "User with same email or username already exists",
+      message: err.message,
     });
   }
 
+  console.log("Success");
+
   return res.status(201).json({
     success: true,
-    message:
-      "Registration Successful, Verification Email has been sent to your registered Email. Kindly Check spam folder also.",
+    message: "Registration Successful",
   });
 };
 
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   const user = await db.User.findOne({ email });
 
   if (!user) {
@@ -53,7 +57,7 @@ module.exports.login = async (req, res) => {
       .set({ "Set-Cookie": "token=; Path=/;" })
       .json({ success: false, message: "User Not Found" });
   }
-
+  console.log(password, user.password);
   const passwordOk = await bcrypt.compare(password, user.password);
   if (!passwordOk) {
     return res.status(401).set({ "Set-Cookie": "token=; Path=/;" }).json({

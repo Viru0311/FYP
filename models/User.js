@@ -102,8 +102,8 @@ const UserSchema = mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["Male", "Female", "Other"],
-      default: "Male",
+      enum: ["male", "female", "other"],
+      default: "male",
     },
     userType: {
       type: String,

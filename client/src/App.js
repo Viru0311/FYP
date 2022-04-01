@@ -18,7 +18,6 @@ function App() {
           <Route path="/order" element={<Blank text="order" />} />
           <Route path="/signin" element={<SignIn text="signin" />} />
           <Route path="/signup" element={<SignUp text="signup" />} />
-          <Route path="/logout" element={<Blank text="logout" />} />
         </Route>{" "}
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { SERVER_BASE_URL } from "../../config/config";
 import "./sidebar.scss";
+
+const logoutHandler = () => {
+  axios
+    .get(`${SERVER_BASE_URL}/api/auth/logout`)
+    .then((res) => {
+      window.location = "/";
+    })
+    .catch((err) => {
+      window.location = "/";
+    });
+};
 
 const sidebarNavItems = [
   {
@@ -38,12 +51,6 @@ const sidebarNavItems = [
     icon: <i class="bx bx-log-in"></i>,
     to: "/signin",
     section: "signin",
-  },
-  {
-    display: "Logout",
-    icon: <i class="bx bx-log-out"></i>,
-    to: "/logout",
-    section: "logout",
   },
 ];
 
@@ -89,6 +96,7 @@ const Sidebar = () => {
             }px)`,
           }}
         ></div>
+
         {sidebarNavItems.map((item, index) => (
           <Link to={item.to} key={index}>
             <div
@@ -101,6 +109,17 @@ const Sidebar = () => {
             </div>
           </Link>
         ))}
+
+        <div
+          onClick={logoutHandler}
+          style={{ cursor: "pointer" }}
+          className={`sidebar__menu__item`}
+        >
+          <div className="sidebar__menu__item__icon">
+            <i class="bx bx-log-out"></i>
+          </div>
+          <div className="sidebar__menu__item__text">Logout</div>
+        </div>
       </div>
     </div>
   );
