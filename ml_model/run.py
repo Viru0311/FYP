@@ -11,10 +11,10 @@ agrs.pop(0)
 agrs=[float(str) for str in agrs]
 
 # load the standard scaler params from disk
-sc = load('./std_scaler.bin')
+sc = load('./ml_model/std_scaler.bin')
 
 # load the model from disk
-loaded_model = pickle.load(open('./ensemble_model.pkl', 'rb'))
+loaded_model = pickle.load(open('./ml_model/ensemble_model.pkl', 'rb'))
 
 a = [agrs]
 x_train = sc.transform(a)
