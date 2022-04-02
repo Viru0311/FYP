@@ -28,19 +28,19 @@ const sidebarNavItems = [
 const patientSidebarItems = [
   {
     display: "Diagnose",
-    icon: <i class="bx bx-log-in"></i>,
+    icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
     to: "/diagnose",
     section: "diagnose",
   },
   {
     display: "Results",
-    icon: <i class="bx bx-log-in"></i>,
+    icon: <i class="bx bx-plus-medical"></i>,
     to: "/results",
     section: "results",
   },
   {
     display: "Appointments",
-    icon: <i class="bx bx-log-in"></i>,
+    icon: <i class="bx bx-phone-call"></i>,
     to: "/appointments",
     section: "appointments",
   },
@@ -49,13 +49,13 @@ const patientSidebarItems = [
 const doctorSidebarItems = [
   {
     display: "Diagnose",
-    icon: <i class="bx bx-log-in"></i>,
+    icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
     to: "/diagnose",
     section: "diagnose",
   },
   {
     display: "Consultation",
-    icon: <i class="bx bx-log-in"></i>,
+    icon: <i class="bx bx-donate-heart"></i>,
     to: "/consultation",
     section: "consultation",
   },

@@ -3,7 +3,13 @@ const { exec } = require("child_process");
 module.exports.getPatientData = async (req, res) => {
   try {
     if (req.user) {
+      console.log(req.user._doc);
+      req.user._doc.patientResults.sort((a, b) => {
+        return a._id.getTimestamp() - b._id.getTimestamp();
+      });
+
       let user = { ...req.user._doc, password: null };
+
       return res.status(200).json({
         success: true,
         user,
