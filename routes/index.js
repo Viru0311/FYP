@@ -19,6 +19,13 @@ router.post("/auth/register", wrapAsync(auth.register));
 router.get("/auth/logout", validateJWTToken, wrapAsync(auth.logout));
 
 // patient Routes
+router.get(
+  "/patient/getPatientData",
+  validateJWTToken,
+  validateUserIsOfPatientType,
+  patient.getPatientData
+);
+
 router.post(
   "/patient/getPreliminaryResult",
   validateJWTToken,

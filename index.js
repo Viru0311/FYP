@@ -14,11 +14,13 @@ app.use(express.json());
 
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("YO");
-});
-
 app.use("/api", routes);
+
+app.use(express.static("client/build"));
+
+app.use((req, res) => {
+  res.sendFile(`${__dirname}/client/build/index.html`);
+});
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(process.env.PORT);

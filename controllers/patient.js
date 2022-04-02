@@ -1,4 +1,23 @@
-const { spawn, exec } = require("child_process");
+const { exec } = require("child_process");
+
+module.exports.getPatientData = async (req, res) => {
+  try {
+    if (req.user) {
+      let user = { ...req.user._doc, password: null };
+      return res.status(200).json({
+        success: true,
+        user,
+      });
+    } else throw 2;
+  } catch (err) {
+    console.log(err);
+
+    return res.status(200).json({
+      success: false,
+      message: "Not logged In",
+    });
+  }
+};
 
 module.exports.getPreliminaryResult = async (req, res) => {
   try {

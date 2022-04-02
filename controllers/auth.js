@@ -48,7 +48,6 @@ module.exports.register = async (req, res) => {
 
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   const user = await db.User.findOne({ email });
 
   if (!user) {
@@ -57,7 +56,7 @@ module.exports.login = async (req, res) => {
       .set({ "Set-Cookie": "token=; Path=/;" })
       .json({ success: false, message: "User Not Found" });
   }
-  console.log(password, user.password);
+
   const passwordOk = await bcrypt.compare(password, user.password);
   if (!passwordOk) {
     return res.status(401).set({ "Set-Cookie": "token=; Path=/;" }).json({
@@ -73,6 +72,7 @@ module.exports.login = async (req, res) => {
     .json({
       success: true,
       message: "Login Successful",
+      user: { ...user._doc, password: null },
     });
 };
 
