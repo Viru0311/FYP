@@ -104,13 +104,14 @@ module.exports.getConsultationByDoctor = async (req, res) => {
     const doctorInfo = req.user.selectedDoctor;
     const patientId = req.user._id;
     const patientName = req.user.name;
+    const patientAge = req.body.age;
+    const patientGender = req.user.gender;
+    const modelOutput = req.body.output;
     const resultId = req.body._id;
 
-    console.log(
-      await db.User.updateOne(
-        { "patientResults._id": resultId },
-        { $set: { "patientResults.$.appliedForConsultation": true } }
-      )
+    await db.User.updateOne(
+      { "patientResults._id": resultId },
+      { $set: { "patientResults.$.appliedForConsultation": true } }
     );
 
     await req.user.save();
@@ -119,6 +120,9 @@ module.exports.getConsultationByDoctor = async (req, res) => {
     selectedDoctor.requestedConsultation.push({
       patientId,
       patientName,
+      patientAge,
+      patientGender,
+      modelOutput,
       resultId,
       verified: false,
     });
@@ -127,6 +131,28 @@ module.exports.getConsultationByDoctor = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
+    });
+  }
+};
+
+module.exports.getReport = async (req, res) => {
+  try {
+    const patientId = req.query.patientId;
+    const resultId = req.query.resultId;
+
+    const patient = await db.User.findOne({ _id: patientId });
+    const report = patient.patientResults.filter(function (el) {
+      return el._id.toString() === resultId;
+    })[0];
+
+    return res.status(200).json({
+      success: true,
+      report,
     });
   } catch (err) {
     console.log(err);

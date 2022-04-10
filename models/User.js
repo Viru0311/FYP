@@ -132,6 +132,9 @@ const UserSchema = mongoose.Schema(
       {
         patientId: { type: String, required: true },
         patientName: { type: String, required: true },
+        patientAge: { type: Number, required: true },
+        patientGender: { type: String, required: true },
+        modelOutput: { type: Number, required: true },
         resultId: { type: String, required: true },
         verified: { type: Boolean, default: false },
       },

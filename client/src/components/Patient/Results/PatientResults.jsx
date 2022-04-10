@@ -17,7 +17,7 @@ function PatientResults(props) {
   const datas = props.userContext.user.patientResults || [];
   const context = useContext(UserContext);
   const content = [];
-
+  console.log(datas);
   const onClickHandler = async (data) => {
     try {
       const res = await axios.post(
@@ -42,7 +42,10 @@ function PatientResults(props) {
         <Card>
           <CardContent>
             <Typography gutterBottom variant="h6" component="div">
-              <span style={{ color: "grey" }}> Preliminary Output - </span>{" "}
+              <span style={{ color: "grey" }}>
+                {" "}
+                Preliminary Output By Model -{" "}
+              </span>{" "}
               {data.output
                 ? "More chance of heart attack"
                 : "Less chance of heart attack"}
@@ -52,14 +55,36 @@ function PatientResults(props) {
             </Typography>
           </CardContent>
 
-          <CardActions>
-            <Button
-              disabled={data.appliedForConsultation}
-              onClick={() => onClickHandler(data)}
-            >
-              Get consultation by doctor
-            </Button>
-          </CardActions>
+          {data.appliedForConsultation ? (
+            !data.doctorDiagnosis ? (
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  Waiting for Doctor response
+                </Typography>
+              </CardContent>
+            ) : null
+          ) : (
+            <CardActions>
+              <Button onClick={() => onClickHandler(data)}>
+                Get consultation by doctor
+              </Button>
+            </CardActions>
+          )}
+
+          {data.doctorDiagnosis ? (
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                <span style={{ color: "grey" }}> Doctor Verdict - </span>{" "}
+                {data.doctorDiagnosis.output
+                  ? "More chance of heart attack"
+                  : "Less chance of heart attack"}
+              </Typography>
+
+              <Typography variant="body2" color="text.secondary">
+                Comment By Doctor - {data.doctorDiagnosis.comment}
+              </Typography>
+            </CardContent>
+          ) : null}
         </Card>
         <br />
       </>

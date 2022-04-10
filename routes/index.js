@@ -56,8 +56,17 @@ router.post(
   patient.getConsultationByDoctor
 );
 
+router.get("/patient/getReport", validateJWTToken, patient.getReport);
+
 // Doctor Routes
 router.get("/doctor/getConnectList", validateJWTToken, doctor.getConnectList);
+
+router.post(
+  "/doctor/passFinalVerdict",
+  validateJWTToken,
+  validateUserIsOfDoctorType,
+  doctor.passFinalVerdict
+);
 
 router.get("/test", validateJWTToken, (req, res) => {
   res.send("Yo Bitch");

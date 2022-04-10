@@ -14,6 +14,7 @@ import { UserContext } from "./context/user_context";
 import PatientDiagnose from "./components/Patient/Diagnosis/PatientDiagnose";
 import PatientResults from "./components/Patient/Results/PatientResults";
 import ConnectWithDoctor from "./components/Patient/Connect/ConnectWithDoctor";
+import DoctorDiagnosis from "./components/Doctor/Diagnosis/DoctorDiagnosis";
 
 export default class App extends Component {
   constructor(props) {
@@ -75,10 +76,7 @@ export default class App extends Component {
               />
 
               {/* Doctor routes */}
-              <Route
-                path="/doctor/diagnose"
-                element={<Blank text="diagnose" />}
-              />
+              <Route path="/doctor/diagnose" element={<DoctorDiagnosis />} />
               <Route
                 path="/doctor/consultation"
                 element={<Blank text="consultation" />}
