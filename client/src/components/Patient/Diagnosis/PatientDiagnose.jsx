@@ -13,17 +13,16 @@ import FormControl from "@mui/material/FormControl";
 import { SERVER_BASE_URL } from "../../../config/config";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../../../context/user_context";
+import { UserContext, withUser } from "../../../context/user_context";
 
 class PatientDiagnose extends React.Component {
-  static context = UserContext;
-
   constructor(props) {
     super(props);
-    console.log(this.context);
 
     const sex =
-      this.context && this.context.user && this.context.user.gender === "male"
+      this.props.userContext &&
+      this.props.userContext.user &&
+      this.props.userContext.user.gender === "male"
         ? 1
         : 0;
 
@@ -73,6 +72,8 @@ class PatientDiagnose extends React.Component {
       .post(`${SERVER_BASE_URL}/api/patient/getPreliminaryResult`, data)
       .then((res) => {
         if (res.data.success) {
+          res.data.updatedUser &&
+            this.props.userContext.updateUser(res.data.updatedUser);
           cb(res.data.message, false);
         } else cb(res.data.message, true);
       })
@@ -446,4 +447,4 @@ class PatientDiagnose extends React.Component {
   }
 }
 
-export default PatientDiagnose;
+export default withUser(PatientDiagnose);

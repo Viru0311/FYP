@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "boxicons/css/boxicons.min.css";
 import axios from "axios";
+import _ from "lodash";
 
 import { SERVER_BASE_URL } from "./config/config";
 import "./App.scss";
@@ -17,7 +18,8 @@ export default class App extends Component {
     super(props);
 
     this.updateUser = (user) => {
-      this.setState({ user: { ...user } });
+      const immutableUser = _.cloneDeep(user);
+      this.setState({ user: { ...immutableUser } });
     };
 
     this.updateLogInStatus = (logInStatus) => {
@@ -38,7 +40,6 @@ export default class App extends Component {
       .get(`${SERVER_BASE_URL}/api/patient/getPatientData`)
       .then((res) => {
         if (res.data.success) {
-          console.log(res.data);
           this.updateUser(res.data.user);
           this.updateLogInStatus(true);
 

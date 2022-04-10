@@ -90,8 +90,6 @@ const Sidebar = () => {
   const value = useContext(UserContext);
   let finalSidebarItems = getUpdatedSidebarItems(value);
 
-  console.log(value);
-
   useEffect(() => {
     finalSidebarItems = getUpdatedSidebarItems(value);
   }, [value]);
@@ -115,7 +113,6 @@ const Sidebar = () => {
     const str = window.location.pathname;
     const curPath = str.substring(str.indexOf("-") + 2) || "";
     const activeItem = finalSidebarItems.findIndex((item) => {
-      console.log(item.section, str);
       return item.section === curPath;
     });
     setActiveIndex(curPath.length === 0 ? 0 : activeItem);

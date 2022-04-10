@@ -3,7 +3,6 @@ const { exec } = require("child_process");
 module.exports.getPatientData = async (req, res) => {
   try {
     if (req.user) {
-      console.log(req.user._doc);
       req.user._doc.patientResults.sort((a, b) => {
         return a._id.getTimestamp() - b._id.getTimestamp();
       });
@@ -38,9 +37,23 @@ module.exports.getPreliminaryResult = async (req, res) => {
       req.user.patientResults.push({ ...req.body.inputParams, output });
       await req.user.save();
 
-      //(TODO): redirect to the results page later, will change
+      let user = undefined;
+
+      try {
+        if (req.user) {
+          req.user._doc.patientResults.sort((a, b) => {
+            return a._id.getTimestamp() - b._id.getTimestamp();
+          });
+
+          user = { ...req.user._doc, password: null };
+        }
+      } catch (err) {
+        user = undefined;
+      }
+
       return res.status(200).json({
         success: true,
+        updatedUser: user,
         output,
       });
     });

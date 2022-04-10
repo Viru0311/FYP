@@ -8,3 +8,13 @@ export const UserContext = React.createContext({
   updateUser: (user) => {},
   updateLogInStatus: (logInStatus) => {},
 });
+
+export function withUser(Component) {
+  return function UserComponent(props) {
+    return (
+      <UserContext.Consumer>
+        {(userContext) => <Component {...props} userContext={userContext} />}
+      </UserContext.Consumer>
+    );
+  };
+}
