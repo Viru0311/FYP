@@ -70,6 +70,13 @@ const resultsSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+
+  appliedForConsultation: { Type: Boolean, default: false },
+
+  doctorDiagnosis: {
+    output: { type: Number },
+    comment: { type: String },
+  },
 });
 
 const UserSchema = mongoose.Schema(
@@ -119,6 +126,16 @@ const UserSchema = mongoose.Schema(
       _id: { type: String, default: "" },
       name: { type: String, default: "" },
     },
+
+    // will be accessible for doctors only
+    requestedConsultation: [
+      {
+        patientId: { type: String, required: true },
+        patientName: { type: String, required: true },
+        resultId: { type: String, required: true },
+        verified: { type: Boolean, default: false },
+      },
+    ],
   },
   {
     toObject: { versionKey: false },

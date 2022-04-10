@@ -53,12 +53,12 @@ const doctorSidebarItems = [
     to: "/doctor/diagnose",
     section: "doctor/diagnose",
   },
-  {
-    display: "Consultation",
-    icon: <i className="bx bx-donate-heart"></i>,
-    to: "/doctor/consultation",
-    section: "doctor/consultation",
-  },
+  // {
+  //   display: "Consultation",
+  //   icon: <i className="bx bx-donate-heart"></i>,
+  //   to: "/doctor/consultation",
+  //   section: "doctor/consultation",
+  // },
 ];
 
 const getUpdatedSidebarItems = (value) => {

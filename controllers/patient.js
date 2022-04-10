@@ -1,4 +1,5 @@
 const { exec } = require("child_process");
+const db = require("../models");
 
 module.exports.getPatientData = async (req, res) => {
   try {
@@ -93,6 +94,44 @@ module.exports.updateDoctorPreference = async (req, res) => {
     console.log(err);
     return res.status(200).json({
       success: true,
+    });
+  }
+};
+
+module.exports.getConsultationByDoctor = async (req, res) => {
+  try {
+    // _id, name
+    const doctorInfo = req.user.selectedDoctor;
+    const patientId = req.user._id;
+    const patientName = req.user.name;
+    const resultId = req.body._id;
+
+    console.log(
+      await db.User.updateOne(
+        { "patientResults._id": resultId },
+        { $set: { "patientResults.$.appliedForConsultation": true } }
+      )
+    );
+
+    await req.user.save();
+
+    const selectedDoctor = await db.User.findOne({ _id: doctorInfo._id });
+    selectedDoctor.requestedConsultation.push({
+      patientId,
+      patientName,
+      resultId,
+      verified: false,
+    });
+
+    await selectedDoctor.save();
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
     });
   }
 };
