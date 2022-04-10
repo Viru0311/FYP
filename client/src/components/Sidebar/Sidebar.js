@@ -28,19 +28,19 @@ const sidebarNavItems = [
 const patientSidebarItems = [
   {
     display: "Diagnose",
-    icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
+    icon: <i className="bx bxs-virus bx-flip-horizontal"></i>,
     to: "/patient/diagnose",
     section: "patient/diagnose",
   },
   {
     display: "Results",
-    icon: <i class="bx bx-plus-medical"></i>,
+    icon: <i className="bx bx-plus-medical"></i>,
     to: "/patient/results",
     section: "patient/results",
   },
   {
     display: "Appointments",
-    icon: <i class="bx bx-phone-call"></i>,
+    icon: <i className="bx bx-phone-call"></i>,
     to: "/patient/appointments",
     section: "patient/appointments",
   },
@@ -49,13 +49,13 @@ const patientSidebarItems = [
 const doctorSidebarItems = [
   {
     display: "Diagnose",
-    icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
+    icon: <i className="bx bxs-virus bx-flip-horizontal"></i>,
     to: "/doctor/diagnose",
     section: "doctor/diagnose",
   },
   {
     display: "Consultation",
-    icon: <i class="bx bx-donate-heart"></i>,
+    icon: <i className="bx bx-donate-heart"></i>,
     to: "/doctor/consultation",
     section: "doctor/consultation",
   },
@@ -66,7 +66,7 @@ const getUpdatedSidebarItems = (value) => {
     ...sidebarNavItems,
     {
       display: "SignIn",
-      icon: <i class="bx bx-log-in"></i>,
+      icon: <i className="bx bx-log-in"></i>,
       to: "/signin",
       section: "signin",
       requireLoggedOut: true,
@@ -168,7 +168,7 @@ const Sidebar = () => {
                   className={`sidebar__menu__item`}
                 >
                   <div className="sidebar__menu__item__icon">
-                    <i class="bx bx-log-out"></i>
+                    <i className="bx bx-log-out"></i>
                   </div>
                   <div className="sidebar__menu__item__text">Logout</div>
                 </div>

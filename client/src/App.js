@@ -12,6 +12,7 @@ import SignIn from "./components/Auth/SignIn/SignIn.jsx";
 import SignUp from "./components/Auth/SignUp/SignUp.jsx";
 import { UserContext } from "./context/user_context";
 import PatientDiagnose from "./components/Patient/Diagnosis/PatientDiagnose";
+import PatientResults from "./components/Patient/Diagnosis/PatientResults";
 
 export default class App extends Component {
   constructor(props) {
@@ -66,10 +67,7 @@ export default class App extends Component {
 
               {/* Patient routes */}
               <Route path="/patient/diagnose" element={<PatientDiagnose />} />
-              <Route
-                path="/patient/results"
-                element={<Blank text="Results" />}
-              />
+              <Route path="/patient/results" element={<PatientResults />} />
               <Route
                 path="/patient/appointments"
                 element={<Blank text="Appointments" />}
