@@ -100,11 +100,13 @@ const UserSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+
     gender: {
       type: String,
       enum: ["male", "female", "other"],
       default: "male",
     },
+
     userType: {
       type: String,
       enum: ["patient", "doctor"],
@@ -112,6 +114,11 @@ const UserSchema = mongoose.Schema(
     },
 
     patientResults: { type: [resultsSchema] },
+
+    selectedDoctor: {
+      _id: { type: String, default: "" },
+      name: { type: String, default: "" },
+    },
   },
   {
     toObject: { versionKey: false },

@@ -81,3 +81,18 @@ module.exports.getAllResults = async (req, res) => {
     });
   }
 };
+
+module.exports.updateDoctorPreference = async (req, res) => {
+  try {
+    req.user.selectedDoctor = req.body;
+    await req.user.save();
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: true,
+    });
+  }
+};

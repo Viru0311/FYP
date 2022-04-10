@@ -42,6 +42,13 @@ router.get(
   patient.getAllResults
 );
 
+router.post(
+  "/patient/updateDoctorPreference",
+  validateJWTToken,
+  validateUserIsOfPatientType,
+  patient.updateDoctorPreference
+);
+
 // Doctor Routes
 router.get("/doctor/getConnectList", validateJWTToken, doctor.getConnectList);
 

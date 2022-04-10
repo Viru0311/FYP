@@ -9,14 +9,14 @@ module.exports.getConnectList = async (req, res) => {
       { $project: { name: 1, _id: 1 } },
     ]);
 
-    const results = [];
+    const data = [];
     for await (const doc of aggCursor) {
-      results.push(doc);
+      data.push(doc);
     }
 
     return res.status(200).json({
       success: true,
-      results,
+      data,
     });
   } catch (err) {
     return res.status(200).json({
