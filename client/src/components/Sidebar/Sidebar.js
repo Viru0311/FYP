@@ -29,20 +29,20 @@ const patientSidebarItems = [
   {
     display: "Diagnose",
     icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
-    to: "/diagnose",
-    section: "diagnose",
+    to: "/patient/diagnose",
+    section: "patient/diagnose",
   },
   {
     display: "Results",
     icon: <i class="bx bx-plus-medical"></i>,
-    to: "/results",
-    section: "results",
+    to: "/patient/results",
+    section: "patient/results",
   },
   {
     display: "Appointments",
     icon: <i class="bx bx-phone-call"></i>,
-    to: "/appointments",
-    section: "appointments",
+    to: "/patient/appointments",
+    section: "patient/appointments",
   },
 ];
 
@@ -50,14 +50,14 @@ const doctorSidebarItems = [
   {
     display: "Diagnose",
     icon: <i class="bx bxs-virus bx-flip-horizontal"></i>,
-    to: "/diagnose",
-    section: "diagnose",
+    to: "/doctor/diagnose",
+    section: "doctor/diagnose",
   },
   {
     display: "Consultation",
     icon: <i class="bx bx-donate-heart"></i>,
-    to: "/consultation",
-    section: "consultation",
+    to: "/doctor/consultation",
+    section: "doctor/consultation",
   },
 ];
 
@@ -112,10 +112,12 @@ const Sidebar = () => {
 
   // change active index
   useEffect(() => {
-    const curPath = window.location.pathname.split("/")[1];
-    const activeItem = finalSidebarItems.findIndex(
-      (item) => item.section === curPath
-    );
+    const str = window.location.pathname;
+    const curPath = str.substring(str.indexOf("-") + 2) || "";
+    const activeItem = finalSidebarItems.findIndex((item) => {
+      console.log(item.section, str);
+      return item.section === curPath;
+    });
     setActiveIndex(curPath.length === 0 ? 0 : activeItem);
   }, [location]);
 

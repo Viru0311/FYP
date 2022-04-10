@@ -10,6 +10,7 @@ import Blank from "./pages/Blank";
 import SignIn from "./components/Auth/SignIn/SignIn.jsx";
 import SignUp from "./components/Auth/SignUp/SignUp.jsx";
 import { UserContext } from "./context/user_context";
+import PatientDiagnose from "./components/Patient/Diagnosis/PatientDiagnose";
 
 export default class App extends Component {
   constructor(props) {
@@ -59,12 +60,29 @@ export default class App extends Component {
               />
               <Route path="/diagnose" element={<Blank text="Diagnose" />} />
               <Route path="/results" element={<Blank text="Results" />} />
-              <Route
-                path="/appointments"
-                element={<Blank text="Appointments" />}
-              />
               <Route path="/signin" element={<SignIn text="signin" />} />
               <Route path="/signup" element={<SignUp text="signup" />} />
+
+              {/* Patient routes */}
+              <Route path="/patient/diagnose" element={<PatientDiagnose />} />
+              <Route
+                path="/patient/results"
+                element={<Blank text="Results" />}
+              />
+              <Route
+                path="/patient/appointments"
+                element={<Blank text="Appointments" />}
+              />
+
+              {/* Doctor routes */}
+              <Route
+                path="/doctor/diagnose"
+                element={<Blank text="diagnose" />}
+              />
+              <Route
+                path="/doctor/consultation"
+                element={<Blank text="consultation" />}
+              />
             </Route>{" "}
           </Routes>
         </BrowserRouter>
