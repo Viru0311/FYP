@@ -434,7 +434,7 @@ class PatientDiagnose extends React.Component {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      Get Preliminary Prediction
+                      Get Preliminary Result
                     </Button>
                   </Box>
                 </Box>
