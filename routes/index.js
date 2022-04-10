@@ -2,11 +2,13 @@ const express = require("express");
 
 const auth = require("../controllers/auth");
 const patient = require("../controllers/patient");
+const doctor = require("../controllers/doctor");
 const { wrapAsync } = require("../helpers/error");
 let {
   validateJWTToken,
   validateUserEmailIsVerified,
   validateUserIsOfPatientType,
+  validateUserIsOfDoctorType,
 } = require("../middlewares/auth");
 
 validateJWTToken = wrapAsync(validateJWTToken);
@@ -39,6 +41,9 @@ router.get(
   validateUserIsOfPatientType,
   patient.getAllResults
 );
+
+// Doctor Routes
+router.get("/doctor/getConnectList", validateJWTToken, doctor.getConnectList);
 
 router.get("/test", validateJWTToken, (req, res) => {
   res.send("Yo Bitch");

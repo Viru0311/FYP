@@ -39,10 +39,10 @@ const patientSidebarItems = [
     section: "patient/results",
   },
   {
-    display: "Appointments",
+    display: "Connect to Doctor",
     icon: <i className="bx bx-phone-call"></i>,
-    to: "/patient/appointments",
-    section: "patient/appointments",
+    to: "/patient/connect_with_doctor",
+    section: "patient/connect_with_doctor",
   },
 ];
 
