@@ -33,4 +33,6 @@ RUN ./scripts/build-frontend.sh
 
 RUN pip3 install -r ./ml_model/requirements.txt
 
+# RUN python3 run.py 51 1 2 110 175 0 1 123 0 0.6 2 0 2
+
 CMD [ "npm", "run", "server:prod" ]
