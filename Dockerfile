@@ -1,3 +1,4 @@
+# Note while using Docker & Docker-Compose, change the mongo_uri from .env file to the one you want to use
 FROM ubuntu:latest
 
 WORKDIR /app
