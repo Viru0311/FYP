@@ -6,14 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: smart_health_care_system_web
-
-    volumes:
-      - type: bind
-        source: ./
-        target: /app
-
-    # Initialize cron-jobs in the background
-    # Start the production server
     command: bash -c "npm run server:prod"
     ports:
       - "5000:5000"
@@ -24,6 +16,9 @@ services:
 
   db:
     image: mongo
+    # If u change the name of the container,
+    # you must change the name of the mongo_uri
+    # in env variable
     container_name: smart_health_care_system_db
     env_file: .env
     volumes:

@@ -1,6 +1,7 @@
 # SmartHealth Care System
 
 ## File Structure
+
 ```
 
 ├── config
@@ -17,7 +18,7 @@
 │   ├── jwt.js
 │   ├── validators.js
 │   └── user.js
-│    
+│
 ├── middlewares
 │   └── auth.js
 │
@@ -37,12 +38,30 @@
 │   └── src
 ```
 
+#### Install ML - Model Dependencies
 
-#### Development
 ```bash
 # Install dependencies
-npm install 
+pip3 install -r ./ml_model/requirements.txt
+```
+
+#### Development
+
+```bash
+# Install dependencies
+npm install
 
 # Start a development server
-npm run start:dev
+npm run server:dev
+
+
+# Start a production server
+npm run server:prod
+```
+
+#### Docker
+
+```bash
+docker-compose up -d --build
+
 ```
