@@ -34,6 +34,8 @@ module.exports.getPreliminaryResult = async (req, res) => {
     }
 
     exec(arg, async (err, stdout, stderr) => {
+      console.log(stdout, err, stderr, 1223);
+
       let output = stdout.toString().trim();
       req.user.patientResults.push({ ...req.body.inputParams, output });
       await req.user.save();
