@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import { SERVER_BASE_URL } from "../../../config/config";
-import { UserContext } from "../../../context/user_context";
+import { UserContext, withUser } from "../../../context/user_context";
 import { Navigate } from "react-router-dom";
 
 class SignIn extends React.Component {
@@ -80,6 +80,14 @@ class SignIn extends React.Component {
 
   render() {
     if (this.state.redirect) return <Navigate push to="/" />;
+
+    if (this.props.userContext.loggedIn)
+      return (
+        <Navigate
+          push
+          to={"/" + this.props.userContext.user.userType + "/diagnose"}
+        />
+      );
 
     return (
       <UserContext.Consumer>
@@ -180,4 +188,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withUser(SignIn);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "boxicons/css/boxicons.min.css";
 import axios from "axios";
 import _ from "lodash";
@@ -57,7 +57,7 @@ export default class App extends Component {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<AppLayout />}>
-              <Route index element={<Blank text="home" />} />
+              <Route index element={<Navigate to="/signin" />} />
               <Route
                 path="/consultation"
                 element={<Blank text="Consultation" />}

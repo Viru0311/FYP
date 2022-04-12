@@ -17,12 +17,12 @@ const logoutHandler = () => {
 };
 
 const sidebarNavItems = [
-  {
-    display: "Dashboard",
-    icon: <i className="bx bx-home"></i>,
-    to: "/",
-    section: "",
-  },
+  // {
+  //   display: "Dashboard",
+  //   icon: <i className="bx bx-home"></i>,
+  //   to: "/",
+  //   section: "",
+  // },
 ];
 
 const patientSidebarItems = [

@@ -153,7 +153,7 @@ class PatientDiagnose extends React.Component {
                   </p>
 
                   <p style={{ color: "green" }}>
-                    {this.state.success && "Registration Successful"}
+                    {this.state.success && "Successfully Diagnosed"}
                   </p>
 
                   <Box

@@ -72,18 +72,24 @@ function PatientResults(props) {
           )}
 
           {data.doctorDiagnosis ? (
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                <span style={{ color: "grey" }}> Doctor Verdict - </span>{" "}
-                {data.doctorDiagnosis.output
-                  ? "More chance of heart attack"
-                  : "Less chance of heart attack"}
-              </Typography>
+            <>
+              <center>
+                {" "}
+                <hr style={{ width: "97%", color: "grey" }} />
+              </center>{" "}
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  <span style={{ color: "grey" }}> Doctor Verdict - </span>{" "}
+                  {data.doctorDiagnosis.output
+                    ? "More chance of heart attack"
+                    : "Less chance of heart attack"}
+                </Typography>
 
-              <Typography variant="body2" color="text.secondary">
-                Comment By Doctor - {data.doctorDiagnosis.comment}
-              </Typography>
-            </CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  Comment By Doctor - {data.doctorDiagnosis.comment}
+                </Typography>
+              </CardContent>
+            </>
           ) : null}
         </Card>
         <br />
