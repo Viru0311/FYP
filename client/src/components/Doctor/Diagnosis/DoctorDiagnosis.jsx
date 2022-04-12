@@ -65,6 +65,15 @@ function DoctorDiagnosis(props) {
   const DoctorVerdictHandler = async (evt) => {
     evt.preventDefault();
 
+    const resultId = report.resultId;
+    const user = { ...props.userContext.user };
+    for (let i = 0; i < user.requestedConsultation.length; i++) {
+      if (user.requestedConsultation[i].resultId === resultId) {
+        user.requestedConsultation[i].verified = true;
+        break;
+      }
+    }
+
     const data = {
       patientId: report.patientId,
       resultId: report.resultId,
@@ -78,46 +87,53 @@ function DoctorDiagnosis(props) {
     );
 
     setServerResponse({ ...res.data, initial: false });
+
+    props.userContext.updateUser(user);
+    handleClose();
   };
 
   let content = [];
   for (let i = 0; i < datas.length; i++) {
     const data = datas[i];
-    content.push(
-      <>
-        <Card key={datas[i].resultId}>
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="div">
-              <span style={{ color: "grey" }}>
-                {" "}
-                Preliminary Output Predicted By ML Model -{" "}
-              </span>{" "}
-              {data.modelOutput
-                ? "More chance of heart attack"
-                : "Less chance of heart attack"}
-            </Typography>
+    if (!datas[i].verified)
+      content.push(
+        <>
+          <Card key={datas[i].resultId}>
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                <span style={{ color: "grey" }}>
+                  {" "}
+                  Preliminary Output Predicted By ML Model -{" "}
+                </span>{" "}
+                {data.modelOutput
+                  ? "More chance of heart attack"
+                  : "Less chance of heart attack"}
+              </Typography>
 
-            <Typography variant="body2" color="text.secondary">
-              Patient Name - {data.patientName}
-            </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Patient Name - {data.patientName}
+              </Typography>
 
-            <Typography variant="body2" color="text.secondary">
-              Patient Age - {data.patientAge}
-            </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Patient Age - {data.patientAge}
+              </Typography>
 
-            <Typography variant="body2" color="text.secondary">
-              Checked at - {getTimestamp(data.patientId)}
-            </Typography>
-          </CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Checked at - {getTimestamp(data.patientId)}
+              </Typography>
+            </CardContent>
 
-          <CardActions>
-            <Button onClick={() => onClickHandler(data)}>Diagnose</Button>
-          </CardActions>
-        </Card>
-        <br />
-      </>
-    );
+            <CardActions>
+              <Button onClick={() => onClickHandler(data)}>Diagnose</Button>
+            </CardActions>
+          </Card>
+          <br />
+        </>
+      );
   }
+
+  if (content.length === 0)
+    content = [<span style={{ color: "grey" }}>No pending consultations</span>];
 
   const style = {
     position: "absolute",
@@ -125,6 +141,8 @@ function DoctorDiagnosis(props) {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 600,
+    height: "85%",
+    overflowY: "auto",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -142,63 +160,73 @@ function DoctorDiagnosis(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <center>
-            {!serverResponse.initial ? (
-              serverResponse.success ? (
+          {!serverResponse.initial ? (
+            serverResponse.success ? (
+              <center>
+                {" "}
                 <span style={{ color: "green" }}>Successfully Updated!</span>
-              ) : (
+              </center>
+            ) : (
+              <center>
+                {" "}
                 <span style={{ color: "red" }}>Something Went Wrong!</span>
-              )
-            ) : null}
+              </center>
+            )
+          ) : null}
+          <center>
             <Typography id="modal-modal-title" variant="h6" component="h3">
               Model Predicts {"->"}{" "}
               {report.output
                 ? "More chance of heart attack"
                 : "Less chance of heart attack"}
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Age - {report.age}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Gender - {report.sex ? "Male" : "Female"}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              CP - {report.cp}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              trtbps - {report.trtbps}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              chol - {report.chol}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              fbs - {report.fbs}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              restecg - {report.restecg}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              thalachh - {report.thalachh}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              oldpeak - {report.oldpeak}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              slp - {report.slp}
-            </Typography>{" "}
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              caa - {report.caa}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              thall - {report.thall}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              exng - {report.exng}
-            </Typography>
-            <br />
-            <br />
-            <br />
-            <br />
+          </center>
+          <br />
+          <hr />
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Age - {report.age}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Gender - {report.sex ? "Male" : "Female"}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            cp - {report.cp}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            trtbps - {report.trtbps}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            chol - {report.chol}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            fbs - {report.fbs}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            restecg - {report.restecg}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            thalachh - {report.thalachh}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            oldpeak - {report.oldpeak}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            slp - {report.slp}
+          </Typography>{" "}
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            caa - {report.caa}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            thall - {report.thall}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            exng - {report.exng}
+          </Typography>
+          <br />
+          <br />
+          <hr />
+          <br />
+          <center>
             <Typography variant="body2" color="text.secondary">
               Write Feedback
             </Typography>
