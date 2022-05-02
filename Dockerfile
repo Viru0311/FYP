@@ -1,5 +1,5 @@
 # Note while using Docker & Docker-Compose, change the mongo_uri from .env file to the one you want to use
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 WORKDIR /app
 
@@ -25,14 +25,18 @@ EXPOSE 5000
 RUN chmod +x ./scripts/*.sh
 
 # Build frontend
-RUN ./scripts/build-frontend.sh
+WORKDIR /app/client
 
-    RUN set -xe \
-        && apt-get update \
-    && apt-get install python3-pip -y
+RUN /app/scripts/build-frontend.sh
+
+WORKDIR /app
+
+RUN set -xe && \
+    apt-get update && \
+    apt-get install -y python3-pip
 
 RUN pip3 install -r ./ml_model/requirements.txt
 
-# RUN python3 run.py 51 1 2 110 175 0 1 123 0 0.6 2 0 2
+RUN python3 ./ml_model/run.py 51 1 2 110 175 0 1 123 0 0.6 2 0 2
 
 CMD [ "npm", "run", "server:prod" ]

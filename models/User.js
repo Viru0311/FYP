@@ -68,7 +68,6 @@ const resultsSchema = mongoose.Schema({
 
   output: {
     type: Number,
-    required: true,
   },
 
   appliedForConsultation: { Type: Boolean, default: false },

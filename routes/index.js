@@ -15,6 +15,18 @@ validateJWTToken = wrapAsync(validateJWTToken);
 validateUserEmailIsVerified = wrapAsync(validateUserEmailIsVerified);
 const router = express.Router();
 
+// Logging
+router.use("/", (req, res, next) => {
+  const protocol = req.protocol;
+  const host = req.hostname;
+  const url = req.originalUrl;
+  const method = req.method;
+
+  const fullUrl = `${method} - ${protocol}://${host}:${url}`;
+  console.log(fullUrl);
+  next();
+});
+
 // Authentication Routes
 router.post("/auth/login", wrapAsync(auth.login));
 router.post("/auth/register", wrapAsync(auth.register));
