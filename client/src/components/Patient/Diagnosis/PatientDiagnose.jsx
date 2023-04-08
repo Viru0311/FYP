@@ -69,7 +69,9 @@ class PatientDiagnose extends React.Component {
 
   getPreliminaryResult = (data, cb) => {
     axios
-      .post(`${SERVER_BASE_URL}/api/patient/getPreliminaryResult`, data)
+      .post(`${SERVER_BASE_URL}/api/patient/getPreliminaryResult`, data,{
+        withCredentials:true
+      })
       .then((res) => {
         if (res.data.success) {
           res.data.updatedUser &&

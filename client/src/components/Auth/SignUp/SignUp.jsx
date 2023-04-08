@@ -58,7 +58,9 @@ class SignUp extends React.Component {
 
   registerUser = (user, cb) => {
     axios
-      .post(`${SERVER_BASE_URL}/api/auth/register`, user)
+      .post(`${SERVER_BASE_URL}/api/auth/register`, user, {
+        withCredentials: true
+      })
       .then((res) => {
         if (res.data.success) {
           cb(res.data.message, false);
@@ -269,6 +271,11 @@ class SignUp extends React.Component {
                           value="patient"
                           control={<Radio />}
                           label="Patient"
+                        />
+                        <FormControlLabel
+                          value="pharmacist"
+                          control={<Radio />}
+                          label="Pharmacist"
                         />
                         <FormControlLabel
                           value="doctor"

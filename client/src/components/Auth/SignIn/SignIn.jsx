@@ -49,7 +49,9 @@ class SignIn extends React.Component {
 
   loginUser = (user, cb, updateUser, updateLogInStatus) => {
     axios
-      .post(`${SERVER_BASE_URL}/api/auth/login`, user)
+      .post(`${SERVER_BASE_URL}/api/auth/login`, user,{
+        withCredentials:true
+      })
       .then((res) => {
         if (res.data.success) {
           updateUser(res.data.user);

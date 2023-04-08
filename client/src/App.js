@@ -40,7 +40,7 @@ export default class App extends Component {
   componentDidMount() {
     //(TODO): Have to change route, inorder to accomodate doctor
     axios
-      .get(`${SERVER_BASE_URL}/api/patient/getPatientData`)
+      .get(`${SERVER_BASE_URL}/api/patient/getPatientData`,{withCredentials:true})
       .then((res) => {
         if (res.data.success) {
           this.updateUser(res.data.user);

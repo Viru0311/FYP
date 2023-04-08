@@ -7,7 +7,7 @@ import { UserContext } from "../../context/user_context";
 
 const logoutHandler = () => {
   axios
-    .get(`${SERVER_BASE_URL}/api/auth/logout`)
+    .get(`${SERVER_BASE_URL}/api/auth/logout`,{withCredentials:true})
     .then((res) => {
       window.location = "/";
     })

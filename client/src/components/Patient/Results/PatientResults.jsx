@@ -22,7 +22,9 @@ function PatientResults(props) {
     try {
       const res = await axios.post(
         `${SERVER_BASE_URL}/api/patient/getConsultationByDoctor`,
-        data
+        data,{
+          withCredentials:true
+        }
       );
 
       const user = context.user;

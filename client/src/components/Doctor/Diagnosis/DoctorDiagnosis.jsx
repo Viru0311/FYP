@@ -45,6 +45,7 @@ function DoctorDiagnosis(props) {
       handleOpen();
 
       const res = await axios.get(`${SERVER_BASE_URL}/api/patient/getReport`, {
+        withCredentials: true,
         params: {
           patientId: data.patientId,
           resultId: data.resultId,
@@ -83,7 +84,9 @@ function DoctorDiagnosis(props) {
 
     const res = await axios.post(
       `${SERVER_BASE_URL}/api/doctor/passFinalVerdict`,
-      data
+      data, {
+      withCredentials: true
+    }
     );
 
     setServerResponse({ ...res.data, initial: false });
