@@ -15,6 +15,17 @@ import PatientDiagnose from "./components/Patient/Diagnosis/PatientDiagnose";
 import PatientResults from "./components/Patient/Results/PatientResults";
 import ConnectWithDoctor from "./components/Patient/Connect/ConnectWithDoctor";
 import DoctorDiagnosis from "./components/Doctor/Diagnosis/DoctorDiagnosis";
+import PharmacistApprove from "./components/Pharmacist/Pharmacist";
+import { red } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme=createTheme({
+  palette: {
+    primary: {
+      main: red[500],
+    },
+  },
+})
 
 export default class App extends Component {
   constructor(props) {
@@ -53,6 +64,7 @@ export default class App extends Component {
   }
   render() {
     return (
+      <ThemeProvider theme={theme}>
       <UserContext.Provider value={this.state}>
         <BrowserRouter>
           <Routes>
@@ -77,6 +89,7 @@ export default class App extends Component {
 
               {/* Doctor routes */}
               <Route path="/doctor/diagnose" element={<DoctorDiagnosis />} />
+              <Route path="/pharmacist/diagnose" element={<PharmacistApprove/>} />
               <Route
                 path="/doctor/consultation"
                 element={<Blank text="consultation" />}
@@ -85,6 +98,7 @@ export default class App extends Component {
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
+      </ThemeProvider>
     );
   }
 }

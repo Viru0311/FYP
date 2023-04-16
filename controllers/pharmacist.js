@@ -11,10 +11,12 @@ module.exports.showPatients = async (req, res) => {
         data.push({
           patientId: val.patientId,
           patientName: val.patientName,
-          consultation: val.consultation
+          resultId:val.resultId
+          // consultation: val.consultation
         })
       }
     })
+    console.log(data);
     if (data.length < 1) {
       return res.status(400).json({
         success: true,
@@ -38,6 +40,7 @@ module.exports.approvePatient = async (req, res) => {
   try {
     const patientId = req.body.patientId;
     const resultId = req.body.resultId;
+    console.log(patientId,resultId);
     const currentPatient = await db.User.findOne({
       _id: patientId,
     });

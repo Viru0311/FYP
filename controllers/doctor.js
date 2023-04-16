@@ -54,7 +54,7 @@ module.exports.passFinalVerdict = async (req, res) => {
       success: true,
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(200).json({
       success: false,
       message: "Not logged In",

@@ -134,6 +134,7 @@ const UserSchema = mongoose.Schema(
       {
         resultId: { type: String, required: true },
         patientId: { type: String, required: true },
+        patientName:{type:String},
         verified: { type: Boolean, required: false }
       }
     ],

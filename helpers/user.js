@@ -7,7 +7,7 @@ const { getUserFromAuthJWTToken } = require("./jwt");
  * @param {express.Request} req
  */
 module.exports.getUserFromRequest = async (req) => {
-  console.log(req)
+  // console.log(req)
   if (req.headers.cookie) {
     const cookies = cookie.parse(req.headers.cookie);
     if (cookies && cookies.token) {

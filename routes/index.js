@@ -3,7 +3,8 @@ const express = require("express");
 const auth = require("../controllers/auth");
 const patient = require("../controllers/patient");
 const doctor = require("../controllers/doctor");
-const pharmacist = require("../controllers/pharmacist");
+// const pharmacist = require("../controllers/pharmacist");
+const pharmacist=require('../controllers/pharmacist');
 const { wrapAsync } = require("../helpers/error");
 let {
   validateJWTToken,
@@ -79,9 +80,9 @@ router.get("/patient/getReport", validateJWTToken, patient.getReport);
 // Doctor Routes
 router.get("/doctor/getConnectList", validateJWTToken, doctor.getConnectList);
 
-router.post("/pharmacist/showPatients",validateJWTToken,pharmacist.showPatients);
+router.post("/pharmacist/showPatients",pharmacist.showPatients);
 
-router.post("/pharmacist/approvePatient",validateJWTToken,pharmacist.approvePatient)
+router.post("/pharmacist/approvePatient",pharmacist.approvePatient)
 
 router.post(
   "/doctor/passFinalVerdict",
