@@ -76,6 +76,10 @@ const resultsSchema = mongoose.Schema({
     output: { type: Number },
     comment: { type: String },
   },
+  appliedForPharmacist: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const UserSchema = mongoose.Schema(
@@ -115,7 +119,7 @@ const UserSchema = mongoose.Schema(
 
     userType: {
       type: String,
-      enum: ["patient", "doctor","pharmacist"],
+      enum: ["patient", "doctor", "pharmacist"],
       default: "patient",
     },
 
@@ -125,6 +129,14 @@ const UserSchema = mongoose.Schema(
       _id: { type: String, default: "" },
       name: { type: String, default: "" },
     },
+
+    patientList: [
+      {
+        resultId: { type: String, required: true },
+        patientId: { type: String, required: true },
+        verified: { type: Boolean, required: false }
+      }
+    ],
 
     // will be accessible for doctors only
     requestedConsultation: [
@@ -138,6 +150,7 @@ const UserSchema = mongoose.Schema(
         verified: { type: Boolean, default: false },
       },
     ],
+
   },
   {
     toObject: { versionKey: false },

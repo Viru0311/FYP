@@ -163,3 +163,56 @@ module.exports.getReport = async (req, res) => {
     });
   }
 };
+
+module.exports.choosePharmacist = async (req, res) => {
+  try {
+    const patientId = req.user._id;
+    const patientName = req.user.name;
+    const resultId = req.body._id;
+
+    await db.User.updateOne(
+      { "patientResults._id": resultId },
+      { $set: { "patientResults.$.appliedForPharmacist": true } }
+    );
+
+    const resultDetails = await db.User.findOne({
+      _id: patientId
+    })
+
+    const consultation = resultDetails.patientResults.filter((val) => {
+      if (val._id == resultId) {
+        return true;
+      }
+      return false;
+    })
+
+    await req.user.save();
+
+    const selectedPharmacist = await db.User.findOne({ userType: "pharmacist" });
+
+    if (!selectedPharmacist) {
+      return res.status(200).json({
+        success: false,
+      });
+    }
+
+    selectedPharmacist.patientList.push({
+      patientId: patientId,
+      patientName: patientName,
+      consultation: consultation.doctorDiagnosis.comment,
+      resultId: resultId,
+      verified: false
+    });
+
+    await selectedPharmacist.save();
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
+    });
+  }
+}

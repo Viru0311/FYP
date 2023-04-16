@@ -17,7 +17,17 @@ module.exports.register = async (req, res) => {
     req.body.password,
     config.bcrypt.saltRounds
   );
-
+  if (userType === 'pharmacist') {
+    const checkPharmacy = await db.User.findOne({
+      userType: "pharmacist"
+    })
+    if (checkPharmacy) {
+      return res.status(400).json({
+        success: false,
+        message: "Already a pharmacist exists",
+      });
+    }
+  }
   const user = await db.User({
     name: req.body.name,
     username: req.body.username,
