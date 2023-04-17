@@ -2,17 +2,26 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 require("dotenv").config();
-
+const cookieParser=require("cookie-parser")
+const bodyParser=require("body-parser")
 const routes = require("./routes");
 require("./config/database").connect();
 
 const app = express();
-
+app.use(cookieParser());
 // Configure body parser
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      process.env.FRONTEND_URL
+    ],
+    credentials: true,
+  })
+);
 
 app.use("/api", routes);
 

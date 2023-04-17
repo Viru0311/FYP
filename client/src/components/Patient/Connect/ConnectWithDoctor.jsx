@@ -27,7 +27,9 @@ export default function ConnectWithDoctor() {
   useEffect(async () => {
     try {
       const res = await axios.get(
-        `${SERVER_BASE_URL}/api/doctor/getConnectList`
+        `${SERVER_BASE_URL}/api/doctor/getConnectList`,{
+          withCredentials:true
+        }
       );
       if (res.data.success) setDoctorList(res.data.data);
     } catch (err) {}
@@ -55,7 +57,10 @@ export default function ConnectWithDoctor() {
     try {
       const res = await axios.post(
         `${SERVER_BASE_URL}/api/patient/updateDoctorPreference`,
-        data
+        data,
+        {
+          withCredentials:true
+        }
       );
     } catch (err) {}
   };

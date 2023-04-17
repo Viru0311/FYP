@@ -4,7 +4,7 @@
   left: 0;
   height: 100vh;
   width: 320px;
-  background-color: #fff;
+  background: linear-gradient(to right, #0D001D, #260056, #04000A);
 
   &__logo {
     display: grid;
@@ -25,11 +25,11 @@
       padding: 1rem 3rem;
       font-size: 1.25rem;
       font-weight: 500;
-      color: #555555;
+      color: #fff;
       transition: color 0.3s ease-in-out;
 
       &.active {
-        color: #fff;
+        color: black;
       }
 
       &__icon {
@@ -47,7 +47,7 @@
       left: 50%;
       width: calc(100% - 40px);
       border-radius: 10px;
-      background-color: #308efe;
+      background-color: #fff;
       z-index: -1;
       transform: translateX(-50%);
       transition: 0.3s ease-in-out;

@@ -69,7 +69,9 @@ class PatientDiagnose extends React.Component {
 
   getPreliminaryResult = (data, cb) => {
     axios
-      .post(`${SERVER_BASE_URL}/api/patient/getPreliminaryResult`, data)
+      .post(`${SERVER_BASE_URL}/api/patient/getPreliminaryResult`, data,{
+        withCredentials:true
+      })
       .then((res) => {
         if (res.data.success) {
           res.data.updatedUser &&
@@ -307,8 +309,8 @@ class PatientDiagnose extends React.Component {
                       margin="normal"
                     />
 
-                    <FormControl required sx={{ mt: 2, width: 500 }}>
-                      <InputLabel id="demo-simple-select-autowidth-label">
+                    <FormControl required sx={{ mt: 2, width: 500 }} >
+                      <InputLabel id="demo-simple-select-autowidth-label" >
                         exng - Exercise induced angina
                       </InputLabel>
                       <Select

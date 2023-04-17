@@ -7,7 +7,7 @@ import { UserContext } from "../../context/user_context";
 
 const logoutHandler = () => {
   axios
-    .get(`${SERVER_BASE_URL}/api/auth/logout`)
+    .get(`${SERVER_BASE_URL}/api/auth/logout`,{withCredentials:true})
     .then((res) => {
       window.location = "/";
     })
@@ -123,7 +123,8 @@ const Sidebar = () => {
       {({ user, loggedIn, updateUser, updateLogInStatus }) => (
         <div className="sidebar">
           <center>
-            <div className="sidebar__logo">SmHe❤rt</div>
+            <img src="/wc.jpeg" style={{height:'200px',width:'200px',marginTop:'20px'}}></img>
+            <div className="sidebar__logo">WellConnect</div>
           </center>
           <div ref={sidebarRef} className="sidebar__menu">
             <div

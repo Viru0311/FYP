@@ -16,7 +16,7 @@ module.exports.getPatientData = async (req, res) => {
       });
     } else throw 2;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
 
     return res.status(200).json({
       success: false,
@@ -34,7 +34,7 @@ module.exports.getPreliminaryResult = async (req, res) => {
     }
 
     exec(arg, async (err, stdout, stderr) => {
-      console.log(err, stderr);
+      // console.log(err, stderr);
 
       let output = stdout.toString().trim();
       req.user.patientResults.push({ ...req.body.inputParams, output });
@@ -108,7 +108,7 @@ module.exports.getConsultationByDoctor = async (req, res) => {
     const patientName = req.user.name;
     const patientAge = req.body.age;
     const patientGender = req.user.gender;
-    const modelOutput = req.body.output;
+    const modelOutput = req.body.output==null?0:req.body.output;
     const resultId = req.body._id;
 
     await db.User.updateOne(
@@ -119,6 +119,7 @@ module.exports.getConsultationByDoctor = async (req, res) => {
     await req.user.save();
 
     const selectedDoctor = await db.User.findOne({ _id: doctorInfo._id });
+
     selectedDoctor.requestedConsultation.push({
       patientId,
       patientName,
@@ -163,3 +164,58 @@ module.exports.getReport = async (req, res) => {
     });
   }
 };
+
+module.exports.choosePharmacist = async (req, res) => {
+  try {
+    const patientId = req.user._id;
+    const patientName = req.user.name;
+    const resultId = req.body._id;
+    // console.log(patientId,patientName,resultId);
+
+    await db.User.updateOne(
+      { "patientResults._id": resultId },
+      { $set: { "patientResults.$.appliedForPharmacist": true } }
+    );
+
+    const resultDetails = await db.User.findOne({
+      _id: patientId
+    })
+   
+    const consultation = resultDetails.patientResults.filter((val) => {
+      if (val._id == resultId) {
+        return true;
+      }
+      return false;
+    })
+
+    await req.user.save();
+
+    const selectedPharmacist = await db.User.findOne({ userType: "pharmacist" });
+
+    if (!selectedPharmacist) {
+      return res.status(200).json({
+        success: false,
+      });
+    }
+
+    selectedPharmacist.patientList.push({
+      patientId: patientId,
+      patientName: patientName,
+      // consultation: consultation.doctorDiagnosis.comment,
+      resultId: resultId,
+      verified: false
+    });
+
+    await selectedPharmacist.save();
+
+    return res.status(200).json({
+      success: true,
+      selectedPharmacist
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+    });
+  }
+}
