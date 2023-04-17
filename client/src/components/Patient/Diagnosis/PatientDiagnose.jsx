@@ -309,8 +309,8 @@ class PatientDiagnose extends React.Component {
                       margin="normal"
                     />
 
-                    <FormControl required sx={{ mt: 2, width: 500 }}>
-                      <InputLabel id="demo-simple-select-autowidth-label">
+                    <FormControl required sx={{ mt: 2, width: 500 }} >
+                      <InputLabel id="demo-simple-select-autowidth-label" >
                         exng - Exercise induced angina
                       </InputLabel>
                       <Select
