@@ -25,7 +25,7 @@ router.use("/", (req, res, next) => {
   const method = req.method;
 
   const fullUrl = `${method} - ${protocol}://${host}:${url}`;
-  console.log(fullUrl);
+  // console.log(fullUrl);
   next();
 });
 

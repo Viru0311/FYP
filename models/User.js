@@ -79,6 +79,10 @@ const resultsSchema = mongoose.Schema({
   appliedForPharmacist: {
     type: Boolean,
     default: false,
+  },
+  approvedByPharmacist: {
+    type: Boolean,
+    default: false,
   }
 });
 

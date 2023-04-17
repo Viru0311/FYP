@@ -23,7 +23,7 @@ const getTimestamp = (_id) => {
 
 function DoctorDiagnosis(props) {
   const datas = props.userContext.user.requestedConsultation || [];
-  console.log(datas);
+  // console.log(datas);
 
   const [report, setReport] = React.useState({});
   const [consult, setConsult] = React.useState("");

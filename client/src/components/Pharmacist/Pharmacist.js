@@ -32,7 +32,7 @@ function PharmacistApprove() {
 
   const onClickHandler = async (data) => {
     try {
-       console.log(data);
+      //  console.log(data);
       const res = await axios.post(`${SERVER_BASE_URL}/api/pharmacist/approvePatient`,  {   
         patientId: data.patientId,
         resultId: data.resultId
@@ -53,7 +53,7 @@ function PharmacistApprove() {
   };
 
   let content = [];
-  console.log(datas.length);
+  // console.log(datas.length);
   for (let i = 0; i < datas.length; i++) {
     const data = datas[i];
     if (!datas[i].verified)
@@ -107,7 +107,7 @@ function PharmacistApprove() {
     p: 4,
   };
 
-   console.log(content);
+  //  console.log(content);
   return (
     <>
       <Container>{content}</Container>

@@ -48,7 +48,7 @@ module.exports.register = async (req, res) => {
     });
   }
 
-  console.log("Success");
+  // console.log("Success");
 
   return res.status(201).json({
     success: true,

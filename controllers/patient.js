@@ -170,7 +170,7 @@ module.exports.choosePharmacist = async (req, res) => {
     const patientId = req.user._id;
     const patientName = req.user.name;
     const resultId = req.body._id;
-    console.log(patientId,patientName,resultId);
+    // console.log(patientId,patientName,resultId);
 
     await db.User.updateOne(
       { "patientResults._id": resultId },

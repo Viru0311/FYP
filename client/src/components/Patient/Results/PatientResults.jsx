@@ -18,14 +18,14 @@ function PatientResults(props) {
   const datas = props.userContext.user.patientResults || [];
   const context = useContext(UserContext);
   const content = [];
-  console.log(datas);
+  // console.log(datas);
   const onClickHandler = async (data) => {
     try {
       const res = await axios.post(
         `${SERVER_BASE_URL}/api/patient/getConsultationByDoctor`,
-        data,{
-          withCredentials:true
-        }
+        data, {
+        withCredentials: true
+      }
       );
 
       const user = context.user;
@@ -35,25 +35,25 @@ function PatientResults(props) {
       }
 
       context.updateUser(user);
-    } catch (err) {}
+    } catch (err) { }
   };
 
-  const handleApporve=async(id)=>{
-    try{
-      const res=await  axios.post( `${SERVER_BASE_URL}/api/patient/choosePharmacist`,{_id:id},{
-        withCredentials:true
+  const handleApporve = async (id) => {
+    try {
+      const res = await axios.post(`${SERVER_BASE_URL}/api/patient/choosePharmacist`, { _id: id }, {
+        withCredentials: true
       })
-      console.log(res);
+      // console.log(res);
       window.location.reload();
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
-      
+
   }
 
   for (let i = 0; i < datas.length; i++) {
     const data = datas[i];
-    console.log(data);
+    // console.log(data);
     content.push(
       <>
         <Card>
@@ -87,7 +87,7 @@ function PatientResults(props) {
               </Button>
             </CardActions>
           )}
- 
+
           {data.doctorDiagnosis ? (
             <>
               <center>
@@ -101,31 +101,33 @@ function PatientResults(props) {
                     ? "More chance of heart attack"
                     : "Less chance of heart attack"}
                 </Typography>
-         
+
                 <Typography variant="body2" color="text.secondary">
                   Comment By Doctor - {data.doctorDiagnosis.comment}
-                
-                </Typography>
-               
-                  {
-                     
-                    data.appliedForPharmacist?(
-                      
-                      <Typography variant="body2" color="text.secondary">Request sent to Pharmacist</Typography>
-                  
-                    ):(
-                      <Box style={{display:'flex' , marginTop:'20px'}}>
-                     <Typography variant="body2" color="text.secondary">
-                      Do you want to consult with Phramacist?
-                     </Typography>
-                     <Button onClick={()=>{handleApporve(data._id)}} style={{marginTop:'-5px',marginLeft:'20px'}} variant="contained">YES</Button>
-                     </Box>
-                      
 
-                    )
-                  }
-                
-                 
+                </Typography>
+
+                {
+
+                  data.appliedForPharmacist ? (
+                    data.approvedByPharmacist ?
+                      <Typography variant="body2" color="text.secondary">Request accepted by Pharmacist</Typography> :
+                      <Typography variant="body2" color="text.secondary">Request sent to Pharmacist</Typography>
+
+
+                  ) : (
+                    <Box style={{ display: 'flex', marginTop: '20px' }}>
+                      <Typography variant="body2" color="text.secondary">
+                        Do you want to consult with Phramacist?
+                      </Typography>
+                      <Button onClick={() => { handleApporve(data._id) }} style={{ marginTop: '-5px', marginLeft: '20px' }} variant="contained">YES</Button>
+                    </Box>
+
+
+                  )
+                }
+
+
               </CardContent>
             </>
           ) : null}

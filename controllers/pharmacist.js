@@ -16,7 +16,7 @@ module.exports.showPatients = async (req, res) => {
         })
       }
     })
-    console.log(data);
+    // console.log(data);
     if (data.length < 1) {
       return res.status(400).json({
         success: true,
@@ -40,7 +40,7 @@ module.exports.approvePatient = async (req, res) => {
   try {
     const patientId = req.body.patientId;
     const resultId = req.body.resultId;
-    console.log(patientId,resultId);
+    // console.log(patientId,resultId);
     const currentPatient = await db.User.findOne({
       _id: patientId,
     });
@@ -52,7 +52,7 @@ module.exports.approvePatient = async (req, res) => {
     }
     currentPatient.patientResults.map((val) => {
       if (val._id == resultId) {
-        val.appliedForPharmacist = true;
+        val.approvedByPharmacist = true;
         return true;
       }
       return false;
